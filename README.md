@@ -1,2 +1,2 @@
 # MasterMCU
-Mastering Microcontroller and Embedded Driver Development - Udemy
+Udemy course: Mastering Microcontroller and Embedded Driver Development
