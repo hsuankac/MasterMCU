@@ -1,5 +1,4 @@
 /* SPI Slave Demo
-
  *
  * SPI pin numbers:
  * SCK   13  // Serial Clock.
@@ -77,8 +76,6 @@ void loop()
     dataBuff[i] =  SPI_SlaveReceive();
   }
 
-
-  //  Serial.println(String(i,HEX));
   dataBuff[i] = '\0';
   
   Serial.println("Rcvd:");
@@ -86,7 +83,3 @@ void loop()
   Serial.print("Length:");
   Serial.println(dataLen);
 }
-
-
-   
-   

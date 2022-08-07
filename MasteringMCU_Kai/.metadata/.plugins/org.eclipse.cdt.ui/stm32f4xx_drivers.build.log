@@ -1,0 +1,20 @@
+10:08:00 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/016uart_case.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"C:/learning/MasterMCU/MasteringMCU_Kai/stm32f4xx_drivers/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/016uart_case.d" -MT"Src/016uart_case.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/016uart_case.o"
+arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\learning\MasterMCU\MasteringMCU_Kai\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: stm32f4xx_drivers.elf
+ 
+arm-none-eabi-size   stm32f4xx_drivers.elf 
+arm-none-eabi-objdump -h -S  stm32f4xx_drivers.elf  > "stm32f4xx_drivers.list"
+arm-none-eabi-objcopy  -O ihex  stm32f4xx_drivers.elf  "stm32f4xx_drivers.hex"
+   text	   data	    bss	    dec	    hex	filename
+   9668	    140	   2652	  12460	   30ac	stm32f4xx_drivers.elf
+Finished building: default.size.stdout
+ 
+Finished building: stm32f4xx_drivers.list
+Finished building: stm32f4xx_drivers.hex
+ 
+ 
+
+10:08:06 Build Finished. 0 errors, 0 warnings. (took 6s.623ms)
+
