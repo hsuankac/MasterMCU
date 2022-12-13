@@ -106,10 +106,10 @@ int main(void)
 
 		//First lets enable the reception in interrupt mode
 		//this code enables the receive interrupt
-		while ( USART_ReceiveDataIT(&usart2_handle,(uint8_t *) rx_buf,strlen(msg[cnt])) != USART_READY );
+		while (USART_ReceiveDataIT(&usart2_handle, (uint8_t *) rx_buf, strlen(msg[cnt])) != USART_READY);
 
 		//Send the msg indexed by cnt in blocking mode
-    	USART_SendData(&usart2_handle,(uint8_t*)msg[cnt],strlen(msg[cnt]));
+    	USART_SendData(&usart2_handle, (uint8_t*)msg[cnt], strlen(msg[cnt]));
 
     	printf("Transmitted : %s\n",msg[cnt]);
 

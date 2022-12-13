@@ -91,7 +91,6 @@ int main(void)
 		delay();
 
 		USART_SendData(&usart2_handle,(uint8_t*)msg,strlen(msg));
-
     }
 
 	return 0;

@@ -1,11 +1,4 @@
 /*
- * 006spi_tx_testing.c
- *
- *  Created on: Jul 1, 2022
- *      Author: hsuankai.chang
- */
-
-/*
  * PB14 --> SPI2_MISO
  * PB15 --> SPI2_MOSI
  * PB13 --> SPI2_SCLK
@@ -76,7 +69,7 @@ int main(void)
 	SPI_SendData(SPI2, (uint8_t*)user_data, strlen(user_data));
 
 	// Confirm SPI is not busy
-	while(SPI_GetFlagStatus(SPI2, SPI_BUSY_FLAG));
+	while(SPI_GetFlagStatus(SPI2, SPI_FLAG_BSY));
 
 	// Disable the SPI2 peripheral
 	SPI_PeripheralControl(SPI2, DISABLE);

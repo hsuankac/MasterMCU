@@ -7,20 +7,23 @@ uint8_t APB1_PreScaler[4] = {2,4,8,16};
 
 uint32_t RCC_GetPCLK1Value(void)
 {
-	uint32_t pclk1,SystemClk;
+	uint32_t pclk1, SystemClk;
 
-	uint8_t clksrc,temp,ahbp,apb1p;
+	uint8_t clksrc, temp, ahbp, apb1p;
 
 	clksrc = ((RCC->CFGR >> 2) & 0x3);
 
 	if(clksrc == 0 )
 	{
+		// system clock is HSI
 		SystemClk = 16000000;
 	}else if(clksrc == 1)
 	{
+		// system clock is HSE
 		SystemClk = 8000000;
 	}else if (clksrc == 2)
 	{
+		// system clock is PLL
 		SystemClk = RCC_GetPLLOutputClock();
 	}
 
@@ -35,7 +38,6 @@ uint32_t RCC_GetPCLK1Value(void)
 		ahbp = AHB_PreScaler[temp-8];
 	}
 
-
 	//apb1
 	temp = ((RCC->CFGR >> 10 ) & 0x7);
 
@@ -47,7 +49,7 @@ uint32_t RCC_GetPCLK1Value(void)
 		apb1p = APB1_PreScaler[temp-4];
 	}
 
-	pclk1 =  (SystemClk / ahbp) /apb1p;
+	pclk1 =  (SystemClk / ahbp) / apb1p;
 
 	return pclk1;
 }
@@ -72,7 +74,7 @@ uint32_t RCC_GetPCLK2Value(void)
 	uint32_t SystemClock=0,tmp,pclk2;
 	uint8_t clk_src = ( RCC->CFGR >> 2) & 0X3;
 
-	uint8_t ahbp,apb2p;
+	uint8_t ahbp, apb2p;
 
 	if(clk_src == 0)
 	{
@@ -81,8 +83,8 @@ uint32_t RCC_GetPCLK2Value(void)
 	{
 		SystemClock = 8000000;
 	}
-	tmp = (RCC->CFGR >> 4 ) & 0xF;
 
+	tmp = (RCC->CFGR >> 4 ) & 0xF;
 	if(tmp < 0x08)
 	{
 		ahbp = 1;

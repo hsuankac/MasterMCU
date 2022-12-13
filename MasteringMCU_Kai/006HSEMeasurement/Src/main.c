@@ -39,34 +39,29 @@ int main(void)
 	/**************Do MCO1 settings to measure it*********************/
 
 	//1. Configure the RCC_CFGR MCO1 bit fields to select HSE as clock source
-		*pRccCfgrReg |= ( 1 << 22); //clear 21 and SET 22
+	*pRccCfgrReg |= ( 1 << 22); //clear 21 and SET 22
 
-		//Configure MCO1 prescaler // divisor as 4
-		*pRccCfgrReg |= ( 1 << 25);
-		*pRccCfgrReg |= ( 1 << 26);
+	//Configure MCO1 prescaler // divisor as 4
+	*pRccCfgrReg |= ( 1 << 25);
+	*pRccCfgrReg |= ( 1 << 26);
 
-		//2. Configure PA8 to AF0 mode to behave as MCO1 signal
-	/*
-	 * You are not expected to understand the below codes for the time being
-	 * because these codes are related to GPIO configurations,
-	 * which will be covered in later sections of this course.
-	 */
+	//2. Configure PA8 to AF0 mode to behave as MCO1 signal
 
-		//a ) Enable the peripheral clock for GPIOA peripheral
+	//a ) Enable the peripheral clock for GPIOA peripheral
 
-		 uint32_t *pRCCAhb1Enr = (uint32_t*)(RCC_BASE_ADDR + 0x30);
-		*pRCCAhb1Enr |= ( 1 << 0); //Enable GPIOA peripheral clock
+	 uint32_t *pRCCAhb1Enr = (uint32_t*)(RCC_BASE_ADDR + 0x30);
+	*pRCCAhb1Enr |= ( 1 << 0); //Enable GPIOA peripheral clock
 
-		//b ) Configure the mode of GPIOA pin 8 as alternate function mode
+	//b ) Configure the mode of GPIOA pin 8 as alternate function mode
 
-		uint32_t *pGPIOAModeReg = (uint32_t*)(GPIOA_BASE_ADDR + 00);
-		*pGPIOAModeReg &= ~( 0x3 << 16); //clear
-		*pGPIOAModeReg |= ( 0x2 << 16);  //set
+	uint32_t *pGPIOAModeReg = (uint32_t*)(GPIOA_BASE_ADDR + 00);
+	*pGPIOAModeReg &= ~( 0x3 << 16); //clear
+	*pGPIOAModeReg |= ( 0x2 << 16);  //set
 
-		//c ) Configure the alternation function register to set the mode 0 for PA8
+	//c ) Configure the alternation function register to set the mode 0 for PA8
 
-		uint32_t *pGPIOAAltFunHighReg = (uint32_t*)(GPIOA_BASE_ADDR + 0x24);
-		*pGPIOAAltFunHighReg &= ~( 0xf << 0);
+	uint32_t *pGPIOAAltFunHighReg = (uint32_t*)(GPIOA_BASE_ADDR + 0x24);
+	*pGPIOAAltFunHighReg &= ~( 0xf << 0);
 
 
 	for(;;);

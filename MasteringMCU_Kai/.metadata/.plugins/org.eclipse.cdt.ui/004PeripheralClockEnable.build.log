@@ -1,20 +1,9 @@
-16:43:55 **** Build of configuration Debug for project 004PeripheralClockEnable ****
-make -j8 all 
-arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
-arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
-arm-none-eabi-gcc -o "004PeripheralClockEnable.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\learning\MasterMCU\MasteringMCU_Kai\004PeripheralClockEnable\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="004PeripheralClockEnable.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 004PeripheralClockEnable.elf
- 
-arm-none-eabi-size   004PeripheralClockEnable.elf 
-arm-none-eabi-objdump -h -S  004PeripheralClockEnable.elf  > "004PeripheralClockEnable.list"
-   text	   data	    bss	    dec	    hex	filename
-    716	      8	   1568	   2292	    8f4	004PeripheralClockEnable.elf
-Finished building: default.size.stdout
- 
-Finished building: 004PeripheralClockEnable.list
+11:05:15 **** Clean-only build of configuration Debug for project 004PeripheralClockEnable ****
+make -j8 clean 
+rm -rf ./Startup/startup_stm32f407vgtx.d ./Startup/startup_stm32f407vgtx.o
+rm -rf ./Src/main.d ./Src/main.o ./Src/main.su ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+rm -rf 004PeripheralClockEnable.elf 004PeripheralClockEnable.list 004PeripheralClockEnable.map default.size.stdout
  
 
-16:43:59 Build Finished. 0 errors, 0 warnings. (took 4s.406ms)
+11:05:17 Build Finished. 0 errors, 0 warnings. (took 2s.164ms)
 

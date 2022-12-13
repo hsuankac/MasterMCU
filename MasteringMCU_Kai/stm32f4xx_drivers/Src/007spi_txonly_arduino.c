@@ -1,4 +1,4 @@
-#include<string.h>
+#include <string.h>
 #include "stm32f407xx.h"
 
 void delay(void)
@@ -47,12 +47,9 @@ void SPI2_GPIOInits(void)
 	//SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_14;
 	//GPIO_Init(&SPIPins);
 
-
 	//NSS
 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
 	GPIO_Init(&SPIPins);
-
-
 }
 
 void SPI2_Inits(void)
@@ -76,7 +73,7 @@ void GPIO_ButtonInit(void)
 {
 	GPIO_Handle_t GPIOBtn;
 
-	//this is btn gpio configuration
+	//this is button GPIO configuration
 	GPIOBtn.pGPIOx = GPIOA;
 	GPIOBtn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_0;
 	GPIOBtn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IN;
@@ -84,13 +81,12 @@ void GPIO_ButtonInit(void)
 	GPIOBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
 	GPIO_Init(&GPIOBtn);
-
 }
 
 
 int main(void)
 {
-	char user_data[] = "Hello FUCKERS, I am going to kill you asshole";
+	char user_data[] = "Hello, how are you doing today";
 	GPIO_ButtonInit();
 
 	//this function is used to initialize the GPIO pins to behave as SPI2 pins
@@ -110,23 +106,23 @@ int main(void)
 	while(1)
 	{
 		//wait till button is pressed
-		while( ! GPIO_ReadFromInputPin(GPIOA,GPIO_PIN_NO_0) );
+		while(!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_NO_0));
 
 		//to avoid button de-bouncing related issues 200ms of delay
 		delay();
 
 		//enable the SPI2 peripheral
-		SPI_PeripheralControl(SPI2,ENABLE);
+		SPI_PeripheralControl(SPI2, ENABLE);
 
 		//first send length information
 		uint8_t dataLen = strlen(user_data);
 		SPI_SendData(SPI2,&dataLen,1);
 
 		//to send data
-		SPI_SendData(SPI2,(uint8_t*)user_data,strlen(user_data));
+		SPI_SendData(SPI2, (uint8_t*)user_data, strlen(user_data));
 
 		//lets confirm SPI is not busy
-		while( SPI_GetFlagStatus(SPI2,SPI_BUSY_FLAG) );
+		while(SPI_GetFlagStatus(SPI2, SPI_FLAG_BSY));
 
 		//Disable the SPI2 peripheral
 		SPI_PeripheralControl(SPI2,DISABLE);

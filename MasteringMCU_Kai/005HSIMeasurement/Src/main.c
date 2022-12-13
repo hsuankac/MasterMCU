@@ -25,16 +25,11 @@ int main(void)
 	//1. Configure the RCC_CFGR MCO1 bit fields to select HSI as clock source
 	*pRccCfgrReg &= ~(0x3 << 21); //clear 21 and 22 bit positions
 
-	//Configure MCO1 prescaler
+	//Configure MCO1 pre-scaler
 	*pRccCfgrReg |= ( 1 << 25);
 	*pRccCfgrReg |= ( 1 << 26);
 
 	//2. Configure PA8 to AF0 mode to behave as MCO1 signal
-/*
- * You are not expected to understand the below codes for the time being
- * because these codes are related to GPIO configurations,
- * which will be covered in later sections of this course.
- */
 
 	//a ) Enable the peripheral clock for GPIOA peripheral
 

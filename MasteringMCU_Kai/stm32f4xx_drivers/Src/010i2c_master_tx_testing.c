@@ -1,10 +1,10 @@
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
 #include "stm32f407xx.h"
 
-#define MY_ADDR 	0x61
+#define MY_ADDR 		0x61
 
-#define SLAVE_ADDR  0x68
+#define SLAVE_ADDR  	0x68
 
 void delay(void)
 {
@@ -15,8 +15,9 @@ I2C_Handle_t I2C1Handle;
 
 //some data
 uint8_t some_data[] = "We are testing I2C master Tx\n";
+
 /*
- * PB6-> SCL
+ * PB6 -> SCL
  * PB7 -> SDA
  */
 
@@ -35,21 +36,19 @@ void I2C1_GPIOInits(void)
 	 */
 	I2CPins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
 	I2CPins.GPIO_PinConfig.GPIO_PinAltFunMode = 4;
-	I2CPins. GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+	I2CPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 
 	//scl
 	I2CPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_6;
 	GPIO_Init(&I2CPins);
-
 
 	//sda
 	//Note : since we found a glitch on PB9 , you can also try with PB7
 	I2CPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_7;
 
 	GPIO_Init(&I2CPins);
-
-
 }
+
 
 void I2C1_Inits(void)
 {
@@ -60,7 +59,6 @@ void I2C1_Inits(void)
 	I2C1Handle.I2C_Config.I2C_SCLSpeed = I2C_SCL_SPEED_SM;
 
 	I2C_Init(&I2C1Handle);
-
 }
 
 void GPIO_ButtonInit(void)
@@ -75,7 +73,6 @@ void GPIO_ButtonInit(void)
 	GPIOBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
 	GPIO_Init(&GPIOBtn);
-
 }
 
 
@@ -96,13 +93,13 @@ int main(void)
 	while(1)
 	{
 		//wait till button is pressed
-		while( ! GPIO_ReadFromInputPin(GPIOA,GPIO_PIN_NO_0) );
+		while(!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_NO_0));
 
 		//to avoid button de-bouncing related issues 200ms of delay
 		delay();
 
 		//send some data to the slave
-		I2C_MasterSendData(&I2C1Handle,some_data,strlen((char*)some_data),SLAVE_ADDR, I2C_DISABLE_SR);
+		I2C_MasterSendData(&I2C1Handle, some_data, strlen((char*)some_data), SLAVE_ADDR, I2C_DISABLE_SR);
 	}
 
 }

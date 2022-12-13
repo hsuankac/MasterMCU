@@ -20,7 +20,7 @@ I2C_Handle_t I2C1Handle;
 uint8_t rcv_buf[32];
 
 /*
- * PB6-> SCL
+ * PB6 -> SCL
  * PB7 -> SDA
  */
 
@@ -76,14 +76,11 @@ void GPIO_ButtonInit(void)
 	GpioLed.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_OD;
 	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
-	GPIO_PeriClockControl(GPIOD,ENABLE);
-
 	GPIO_Init(&GpioLed);
 }
 
 int main(void)
 {
-
 	uint8_t commandcode;
 	uint8_t len;
 
@@ -98,8 +95,8 @@ int main(void)
 	I2C1_Inits();
 
 	//I2C IRQ configurations
-	I2C_IRQInterruptConfig(IRQ_NO_I2C1_EV,ENABLE);
-	I2C_IRQInterruptConfig(IRQ_NO_I2C1_ER,ENABLE);
+	I2C_IRQInterruptConfig(IRQ_NO_I2C1_EV, ENABLE);
+	I2C_IRQInterruptConfig(IRQ_NO_I2C1_ER, ENABLE);
 
 	//enable the i2c peripheral
 	I2C_PeripheralControl(I2C1,ENABLE);
@@ -110,22 +107,20 @@ int main(void)
 	while(1)
 	{
 		//wait till button is pressed
-		while( ! GPIO_ReadFromInputPin(GPIOA,GPIO_PIN_NO_0) );
+		while(!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_NO_0));
 
 		//to avoid button de-bouncing related issues 200ms of delay
 		delay();
 
 		commandcode = 0x51;
 
-		while(I2C_MasterSendDataIT(&I2C1Handle,&commandcode,1,SLAVE_ADDR,I2C_ENABLE_SR) != I2C_READY);
-
-		while(I2C_MasterReceiveDataIT(&I2C1Handle,&len,1,SLAVE_ADDR,I2C_ENABLE_SR)!= I2C_READY);
+		while(I2C_MasterSendDataIT(&I2C1Handle, &commandcode, 1, SLAVE_ADDR, I2C_ENABLE_SR) != I2C_READY);
+		while(I2C_MasterReceiveDataIT(&I2C1Handle, &len, 1, SLAVE_ADDR, I2C_ENABLE_SR) != I2C_READY);
 
 		commandcode = 0x52;
-		while(I2C_MasterSendDataIT(&I2C1Handle,&commandcode,1,SLAVE_ADDR,I2C_ENABLE_SR) != I2C_READY);
 
-
-		while(I2C_MasterReceiveDataIT(&I2C1Handle,rcv_buf,len,SLAVE_ADDR,I2C_DISABLE_SR)!= I2C_READY);
+		while(I2C_MasterSendDataIT(&I2C1Handle, &commandcode, 1, SLAVE_ADDR, I2C_ENABLE_SR) != I2C_READY);
+		while(I2C_MasterReceiveDataIT(&I2C1Handle,rcv_buf, len, SLAVE_ADDR, I2C_DISABLE_SR)!= I2C_READY);
 
 		rxComplt = RESET;
 
@@ -136,7 +131,7 @@ int main(void)
         }
 		rcv_buf[len+1] = '\0';
 
-		printf("Data : %s",rcv_buf);
+		printf("Data : %s", rcv_buf);
 		rxComplt = RESET;
 	}
 }
@@ -153,7 +148,7 @@ void I2C1_ER_IRQHandler(void)
 }
 
 
-void I2C_ApplicationEventCallback(I2C_Handle_t *pI2CHandle,uint8_t AppEv)
+void I2C_ApplicationEventCallback(I2C_Handle_t *pI2CHandle, uint8_t AppEv)
 {
      if(AppEv == I2C_EV_TX_CMPLT)
      {

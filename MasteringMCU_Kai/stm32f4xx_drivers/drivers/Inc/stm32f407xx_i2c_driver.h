@@ -1,10 +1,3 @@
-/*
- * stm32f407xx_i2c_driver.h
- *
- *  Created on: Feb 20, 2019
- *      Author: admin
- */
-
 #ifndef INC_STM32F407XX_I2C_DRIVER_H_
 #define INC_STM32F407XX_I2C_DRIVER_H_
 
@@ -21,6 +14,7 @@ typedef struct
 	uint8_t  I2C_FMDutyCycle;
 }I2C_Config_t;
 
+
 /*
  *Handle structure for I2Cx peripheral
  */
@@ -31,8 +25,8 @@ typedef struct
 	uint8_t 		*pTxBuffer; /* !< To store the app. Tx buffer address > */
 	uint8_t 		*pRxBuffer;	/* !< To store the app. Rx buffer address > */
 	uint32_t 		TxLen;		/* !< To store Tx len > */
-	uint32_t 		RxLen;		/* !< To store Tx len > */
-	uint8_t 		TxRxState;	/* !< To store Communication state > */
+	uint32_t 		RxLen;		/* !< To store Rx len > */
+	uint8_t 		TxRxState;	/* !< To store communication state > */
 	uint8_t 		DevAddr;	/* !< To store slave/device address > */
     uint32_t        RxSize;		/* !< To store Rx size  > */
     uint8_t         Sr;			/* !< To store repeated start value  > */
@@ -49,8 +43,8 @@ typedef struct
 /*
  * @I2C_SCLSpeed
  */
-#define I2C_SCL_SPEED_SM 	100000
-#define I2C_SCL_SPEED_FM4K 	400000
+#define I2C_SCL_SPEED_SM 	100000	// standard mode
+#define I2C_SCL_SPEED_FM4K 	400000  // fast mode
 #define I2C_SCL_SPEED_FM2K  200000
 
 
@@ -129,8 +123,9 @@ uint8_t I2C_MasterReceiveDataIT(I2C_Handle_t *pI2CHandle,uint8_t *pRxBuffer, uin
 void I2C_CloseReceiveData(I2C_Handle_t *pI2CHandle);
 void I2C_CloseSendData(I2C_Handle_t *pI2CHandle);
 
-void I2C_SlaveSendData(I2C_RegDef_t *pI2C,uint8_t data);
+void I2C_SlaveSendData(I2C_RegDef_t *pI2C, uint8_t data);
 uint8_t I2C_SlaveReceiveData(I2C_RegDef_t *pI2C);
+
 
 /*
  * IRQ Configuration and ISR handling
@@ -144,7 +139,7 @@ void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle);
 /*
  * Other Peripheral Control APIs
  */
-void  I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx);
+void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx);
 void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnOrDi);
 void I2C_ManageAcking(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);
 void I2C_GenerateStopCondition(I2C_RegDef_t *pI2Cx);
